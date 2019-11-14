@@ -3,25 +3,28 @@ const arn2 = "CCUCGCCGGUACUUCUCG";
 
 
 
-function name (arn) {
-arn.match(/.{1,3}/g).map(function(codon) {
+function name (codon) {
 
+	var name = "";
 	if ((codon == "UCU") || (codon == "UCC") || (codon == "UCA") || (codon == "UCG") || (codon == "AGU") || (codon == "AGC")) {
-		codon = "Sérine";} 
+		name = "Sérine";} 
 	else if ((codon == "CCU") || (codon == "CCC") || (codon == "CCA") || (codon == "CCG")) {
-		codon = "Proline";} 
+		name = "Proline";} 
 	else if (codon == "UUA" || codon == "UUG") {
-		codon = "Leucine";} 
+		name = "Leucine";} 
 	else if (codon == "UUU" || codon == "UUC") {
-		codon = "Phénylalanine";} 
+		name = "Phénylalanine";} 
 	else if (codon == "CGU" || codon == "CGC" || codon == "CGA" || codon == "CGG" || codon == "AGA" || codon == "AGG") {
-		codon = "Arginine";} 
+		name = "Arginine";} 
 	else if (codon == "UAU" || codon == "UAC") {
-		codon = "Tyrosine";}
-	});
+		name = "Tyrosine";}
+	return name
 };
 
-console.log(name(arn1));
-console.log(name(arn2));
+function translater (arn) {
+	return arn.match(/.{1,3}/g).map(codon => codon=name(codon)).join(`-`)
+};
 
-name(arn1);
+
+console.log(`le premier ARN correspond à cette séquence de protéines : ${translater(arn1)}`);
+console.log(`le second ARN correspond à cette séquence de protéines : ${translater(arn2)}`);
